@@ -31,6 +31,8 @@
 #include "dialogs.h"
 #include "network.h"
 
+#include <string.h> 
+
 int _newlib_heap_size_user = 200 * 1024 * 1024;
 static char download_link[512];
 

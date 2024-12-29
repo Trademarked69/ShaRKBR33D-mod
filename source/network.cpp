@@ -27,6 +27,8 @@
 #include "dialogs.h"
 #include "network.h"
 
+#include <string.h> 
+
 volatile char generic_url[512];
 static CURL *curl_handle = NULL;
 volatile uint64_t total_bytes = 0xFFFFFFFF;

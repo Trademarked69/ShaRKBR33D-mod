@@ -26,6 +26,8 @@
 #include "head.h"
 #include "sha1.h"
 
+#include <string.h> 
+
 typedef struct{
 	uint32_t magic;
 	uint32_t version;
