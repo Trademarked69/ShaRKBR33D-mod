@@ -156,7 +156,7 @@ int main(int argc, char *argv[]) {
 	int cfg_size = fread(generic_mem_buffer, 1, MEM_BUFFER_SIZE, fp);
 	fclose(fp);
 	if (!strncmp(generic_mem_buffer, user_plugin_str, strlen(user_plugin_str))) {
-		if (!(sceIoGetstat("ur0:/data/libshacccg.suprx", &st1) >= 0 || sceIoGetstat("ur0:/data/external/libshacccg.suprx", &st2) >= 0)) { // Step 2: Extract libshacccg.suprx
+		if (sceIoGetstat("ux0:/data/Runtime1.00.pkg", &st1) >= 0 && sceIoGetstat("ux0:/data/Runtime2.01.pkg", &st2) >= 0) { // Step 2: Extract libshacccg.suprx
 			sceIoRemove("ux0:/data/Runtime1.00.pkg");
 			sceIoRemove("ux0:/data/Runtime2.01.pkg");
 			download_file("https://www.rinnegatamante.eu/vitadb/get_hb_url.php?id=567", "Downloading SharkF00D");
@@ -188,6 +188,8 @@ int main(int argc, char *argv[]) {
 			fp = fopen(use_ur0 ? "ur0:tai/config.txt" : "ux0:tai/config.txt", "w");
 			fwrite(&generic_mem_buffer[strlen(user_plugin_str)], 1, cfg_size - strlen(user_plugin_str), fp);
 			fclose(fp);
+			sceIoMkdir("ur0:data/external", 0777);
+			copy_file("ur0:/data/libshacccg.suprx", "ur0:/data/external/libshacccg.suprx");
 			sceIoRemove("ux0:data/vitadb.skprx");
 			sceIoRemove("ux0:data/vitadb.suprx");
 			scePromoterUtilInit();
@@ -206,10 +208,12 @@ int main(int argc, char *argv[]) {
 		fwrite(user_plugin_str, 1, strlen(user_plugin_str), fp);
 		fwrite(generic_mem_buffer, 1, cfg_size, fp);
 		fclose(fp);
+		if (!(sceIoGetstat("ux0:/data/Runtime1.00.pkg", &st1) >= 0 && sceIoGetstat("ux0:/data/Runtime2.01.pkg", &st2) >= 0)) { // check if psm runtime pkgs were provided
 		download_file("https://psmreborn.com/psm-runtime/IP9100-PCSI00011_00-PSMRUNTIME000000.pkg", "Downloading PSM Runtime v.1.00");
 		sceIoRename(TEMP_DOWNLOAD_NAME, "ux0:/data/Runtime1.00.pkg");
 		download_file("https://psmreborn.com/psm-runtime/IP9100-PCSI00011_00-PSMRUNTIME000000-A0201-V0100-e4708b1c1c71116c29632c23df590f68edbfc341-PE.pkg", "Downloading PSM Runtime v.2.01");
 		sceIoRename(TEMP_DOWNLOAD_NAME, "ux0:/data/Runtime2.01.pkg");
+		}
 		copy_file("app0:vitadb.skprx", "ux0:data/vitadb.skprx");
 		copy_file("app0:vitadb.suprx", "ux0:data/vitadb.suprx");
 		taiLoadStartKernelModule("ux0:data/vitadb.skprx", 0, NULL, 0);
