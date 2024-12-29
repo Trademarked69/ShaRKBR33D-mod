@@ -209,10 +209,10 @@ int main(int argc, char *argv[]) {
 		fwrite(generic_mem_buffer, 1, cfg_size, fp);
 		fclose(fp);
 		if (!(sceIoGetstat("ux0:/data/Runtime1.00.pkg", &st1) >= 0 && sceIoGetstat("ux0:/data/Runtime2.01.pkg", &st2) >= 0)) { // check if psm runtime pkgs were provided
-		download_file("https://psmreborn.com/psm-runtime/IP9100-PCSI00011_00-PSMRUNTIME000000.pkg", "Downloading PSM Runtime v.1.00");
-		sceIoRename(TEMP_DOWNLOAD_NAME, "ux0:/data/Runtime1.00.pkg");
-		download_file("https://psmreborn.com/psm-runtime/IP9100-PCSI00011_00-PSMRUNTIME000000-A0201-V0100-e4708b1c1c71116c29632c23df590f68edbfc341-PE.pkg", "Downloading PSM Runtime v.2.01");
-		sceIoRename(TEMP_DOWNLOAD_NAME, "ux0:/data/Runtime2.01.pkg");
+			download_file("https://psmreborn.com/psm-runtime/IP9100-PCSI00011_00-PSMRUNTIME000000.pkg", "Downloading PSM Runtime v.1.00");
+			sceIoRename(TEMP_DOWNLOAD_NAME, "ux0:/data/Runtime1.00.pkg");
+			download_file("https://psmreborn.com/psm-runtime/IP9100-PCSI00011_00-PSMRUNTIME000000-A0201-V0100-e4708b1c1c71116c29632c23df590f68edbfc341-PE.pkg", "Downloading PSM Runtime v.2.01");
+			sceIoRename(TEMP_DOWNLOAD_NAME, "ux0:/data/Runtime2.01.pkg");
 		}
 		copy_file("app0:vitadb.skprx", "ux0:data/vitadb.skprx");
 		copy_file("app0:vitadb.suprx", "ux0:data/vitadb.suprx");
